@@ -15,29 +15,39 @@ $$\hat{H}\psi = \left( -\frac{\hbar^2}{2m}\frac{d^2}{dx^2} + V(x) \right)\psi = 
 
 ```mermaid
 flowchart LR
-    subgraph Grid ["Spatial Discretization"]
+    subgraph S1 ["Spatial Grid"]
         direction TB
-        A["1D Grid: x ∈ [x_min, x_max]"] --> B["Step: Δx = (x_max - x_min)/(N-1)"]
+        A["Grid: x ∈ [x_min, x_max]"]
+        B["Spacing: Δx"]
+        A --> B
     end
 
-    subgraph Operator ["Operator Construction"]
+    subgraph S2 ["Hamiltonian Assembly"]
         direction TB
-        C["Kinetic Operator T̂<br/>(3-point tridiagonal)"]
-        D["Potential V(x)<br/>(Diagonal matrix)"]
-        C & D --> E["Hamiltonian Matrix<br/>Ĥ = T̂ + V̂"]
+        C["Kinetic: T̂ (3-point FDM)"]
+        D["Potential: V̂(x) (Diagonal)"]
+        E(["Hamiltonian Matrix<br/><b>Ĥ = T̂ + V̂</b>"])
+        C & D --> E
     end
 
-    subgraph Solver ["Spectral Diagonalization"]
+    subgraph S3 ["Spectral Solver"]
         direction TB
-        F["scipy.linalg.eigh(Ĥ)"] --> G["Eigenvalues E_n (Energy levels)"]
-        F --> H["Eigenvectors ψ_n(x) (Wavefunctions)"]
+        F[["scipy.linalg.eigh(Ĥ)"]]
+        G["Eigenvalues: E<sub>n</sub>"]
+        H["Eigenvectors: ψ<sub>n</sub>(x)"]
+        F --> G
+        F --> H
     end
 
-    Grid --> Operator --> Solver
+    S1 --> S2 --> S3
 
-    classDef default fill:#161b22,stroke:#30363d,stroke-width:1.5px,color:#c9d1d9;
-    classDef highlight fill:#161b22,stroke:#58a6ff,stroke-width:2px,color:#58a6ff;
-    class E,F highlight;
+    %% Estilos refinados para GitHub Dark
+    classDef default fill:#161b22,stroke:#30363d,stroke-width:1px,color:#c9d1d9;
+    classDef main fill:#1f242c,stroke:#58a6ff,stroke-width:1.5px,color:#58a6ff;
+    classDef solver fill:#161b22,stroke:#3fb950,stroke-width:1.5px,color:#3fb950;
+    
+    class E main;
+    class F solver;
 ```
 
 ---
