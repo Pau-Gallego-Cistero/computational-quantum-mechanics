@@ -15,39 +15,33 @@ $$\hat{H}\psi = \left( -\frac{\hbar^2}{2m}\frac{d^2}{dx^2} + V(x) \right)\psi = 
 
 ```mermaid
 flowchart LR
-    subgraph S1 ["Spatial Grid"]
-        direction TB
-        A["Grid: x ∈ [x_min, x_max]"]
-        B["Spacing: Δx"]
-        A --> B
-    end
-
-    subgraph S2 ["Hamiltonian Assembly"]
-        direction TB
-        C["Kinetic: T̂ (3-point FDM)"]
-        D["Potential: V̂(x) (Diagonal)"]
-        E(["Hamiltonian Matrix<br/><b>Ĥ = T̂ + V̂</b>"])
-        C & D --> E
-    end
-
-    subgraph S3 ["Spectral Solver"]
-        direction TB
-        F[["scipy.linalg.eigh(Ĥ)"]]
-        G["Eigenvalues: E<sub>n</sub>"]
-        H["Eigenvectors: ψ<sub>n</sub>(x)"]
-        F --> G
-        F --> H
-    end
-
-    S1 --> S2 --> S3
-
-    %% Estilos refinados para GitHub Dark
-    classDef default fill:#161b22,stroke:#30363d,stroke-width:1px,color:#c9d1d9;
-    classDef main fill:#1f242c,stroke:#58a6ff,stroke-width:1.5px,color:#58a6ff;
-    classDef solver fill:#161b22,stroke:#3fb950,stroke-width:1.5px,color:#3fb950;
+    %% Nodos principales
+    GRID["<b>1. Spatial Grid</b><br/>x ∈ [x_min, x_max]<br/>Spacing: Δx"]
     
-    class E main;
-    class F solver;
+    T["<b>Kinetic Matrix (T)</b><br/>3-point central FDM"]
+    V["<b>Potential Matrix (V)</b><br/>diag(V(x))"]
+    
+    H(["<b>Hamiltonian Matrix</b><br/>H = T + V"])
+    
+    SOLVER[["<b>scipy.linalg.eigh(H)</b><br/>Hermitian Diagonalization"]]
+    
+    EIG_VAL["<b>Eigenvalues (E_n)</b><br/>Discrete energy levels"]
+    EIG_VEC["<b>Eigenvectors (ψ_n)</b><br/>Stationary wavefunctions"]
+
+    %% Conexiones
+    GRID --> T & V
+    T & V --> H
+    H --> SOLVER
+    SOLVER --> EIG_VAL & EIG_VEC
+
+    %% Estilos limpios y consistentes (GitHub Dark)
+    style GRID fill:#161b22,stroke:#30363d,stroke-width:1.5px,color:#c9d1d9
+    style T fill:#161b22,stroke:#30363d,stroke-width:1.5px,color:#c9d1d9
+    style V fill:#161b22,stroke:#30363d,stroke-width:1.5px,color:#c9d1d9
+    style H fill:#1c2128,stroke:#58a6ff,stroke-width:2px,color:#58a6ff
+    style SOLVER fill:#1c2128,stroke:#3fb950,stroke-width:2px,color:#3fb950
+    style EIG_VAL fill:#161b22,stroke:#30363d,stroke-width:1.5px,color:#c9d1d9
+    style EIG_VEC fill:#161b22,stroke:#30363d,stroke-width:1.5px,color:#c9d1d9
 ```
 
 ---
