@@ -4,6 +4,10 @@ A collection of numerical and analytical solutions to the 1D time-independent Sc
 
 $$\hat{H}\psi = \left( -\frac{\hbar^2}{2m}\frac{d^2}{dx^2} + V(x) \right)\psi = E\psi$$
 
+<p align="center">
+  <img src="assets/quantum_solver.svg" alt="Quantum Harmonic Oscillator Eigenstates" width="100%">
+</p>
+
 ---
 
 ## Physics & Numerical Methods
