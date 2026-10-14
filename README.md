@@ -13,6 +13,33 @@ $$\hat{H}\psi = \left( -\frac{\hbar^2}{2m}\frac{d^2}{dx^2} + V(x) \right)\psi = 
 * **Matrix Diagonalization:** The Hamiltonian matrix $\hat{H} = \hat{T} + \hat{V}$ is diagonalized using `scipy.linalg.eigh` to extract eigenvalues (energies $E_n$) and eigenvectors (stationary states $\psi_n(x)$).
 * **Scattering & Tunneling:** Analytical calculation of transmission coefficients $T$ for unbound states ($E < V_0$) to study quantum tunneling exponentially decaying wavefunctions.
 
+```mermaid
+flowchart LR
+    subgraph Grid ["1. Spatial Discretization"]
+        direction TB
+        A["1D Grid: x ∈ [x_min, x_max]"] --> B["Step: Δx = (x_max - x_min)/(N-1)"]
+    end
+
+    subgraph Operator ["2. Operator Construction"]
+        direction TB
+        C["Kinetic Operator T̂<br/>(3-point tridiagonal)"]
+        D["Potential V(x)<br/>(Diagonal matrix)"]
+        C & D --> E["Hamiltonian Matrix<br/>Ĥ = T̂ + V̂"]
+    end
+
+    subgraph Solver ["3. Spectral Diagonalization"]
+        direction TB
+        F["scipy.linalg.eigh(Ĥ)"] --> G["Eigenvalues E_n (Energy levels)"]
+        F --> H["Eigenvectors ψ_n(x) (Wavefunctions)"]
+    end
+
+    Grid --> Operator --> Solver
+
+    classDef default fill:#161b22,stroke:#30363d,stroke-width:1.5px,color:#c9d1d9;
+    classDef highlight fill:#161b22,stroke:#58a6ff,stroke-width:2px,color:#58a6ff;
+    class E,F highlight;
+```
+
 ---
 
 ## 📂 Included Scripts
