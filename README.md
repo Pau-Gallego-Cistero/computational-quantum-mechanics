@@ -15,19 +15,19 @@ $$\hat{H}\psi = \left( -\frac{\hbar^2}{2m}\frac{d^2}{dx^2} + V(x) \right)\psi = 
 
 ```mermaid
 flowchart LR
-    subgraph Grid ["1. Spatial Discretization"]
+    subgraph Grid ["Spatial Discretization"]
         direction TB
         A["1D Grid: x ∈ [x_min, x_max]"] --> B["Step: Δx = (x_max - x_min)/(N-1)"]
     end
 
-    subgraph Operator ["2. Operator Construction"]
+    subgraph Operator ["Operator Construction"]
         direction TB
         C["Kinetic Operator T̂<br/>(3-point tridiagonal)"]
         D["Potential V(x)<br/>(Diagonal matrix)"]
         C & D --> E["Hamiltonian Matrix<br/>Ĥ = T̂ + V̂"]
     end
 
-    subgraph Solver ["3. Spectral Diagonalization"]
+    subgraph Solver ["Spectral Diagonalization"]
         direction TB
         F["scipy.linalg.eigh(Ĥ)"] --> G["Eigenvalues E_n (Energy levels)"]
         F --> H["Eigenvectors ψ_n(x) (Wavefunctions)"]
